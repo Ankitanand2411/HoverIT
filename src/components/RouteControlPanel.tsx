@@ -1,0 +1,98 @@
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Bike, Bot } from "lucide-react";
+import React from "react";
+
+interface RouteControlPanelProps {
+  origin?: [number, number];
+  destination?: [number, number];
+  onPickOrigin: () => void;
+  onPickDestination: () => void;
+  onStart: () => void;
+  simulationActive?: boolean;
+  vehicleType: "bike" | "delivery-bot";
+  setVehicleType: (val: "bike" | "delivery-bot") => void;
+  canStart: boolean;
+}
+
+const RouteControlPanel: React.FC<RouteControlPanelProps> = ({
+  origin,
+  destination,
+  onPickOrigin,
+  onPickDestination,
+  onStart,
+  simulationActive,
+  vehicleType,
+  setVehicleType,
+  canStart,
+}) => {
+  return (
+    <div>
+      <div className="flex gap-2 mb-2">
+        <Button
+          variant={vehicleType === "bike" ? "default" : "outline"}
+          onClick={() => setVehicleType("bike")}
+        >
+          <Bike className="mr-2" /> Bike
+        </Button>
+        <Button
+          variant={vehicleType === "delivery-bot" ? "default" : "outline"}
+          onClick={() => setVehicleType("delivery-bot")}
+        >
+          <Bot className="mr-2" /> Delivery Bot
+        </Button>
+      </div>
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex gap-2 items-center">
+          <Label className="min-w-[80px]">Origin:</Label>
+          <Input
+            className="text-xs"
+            value={origin ? `${origin[0].toFixed(4)}, ${origin[1].toFixed(4)}` : ""}
+            placeholder="Select on map"
+            readOnly
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onPickOrigin}
+            disabled={simulationActive}
+          >
+            Set Origin
+          </Button>
+        </div>
+        <div className="flex gap-2 items-center">
+          <Label className="min-w-[80px]">Destination:</Label>
+          <Input
+            className="text-xs"
+            value={
+              destination
+                ? `${destination[0].toFixed(4)}, ${destination[1].toFixed(4)}`
+                : ""
+            }
+            placeholder="Select on map"
+            readOnly
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onPickDestination}
+            disabled={simulationActive}
+          >
+            Set Destination
+          </Button>
+        </div>
+        <Button
+          className="w-full mt-4 bg-cyber-purple neon-button"
+          disabled={!canStart}
+          onClick={onStart}
+        >
+          {simulationActive ? "Simulating..." : "Start Simulation"}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default RouteControlPanel;
