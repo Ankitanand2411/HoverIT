@@ -42,7 +42,7 @@ GitHub Repo: [Ankitanand2411/HoverIT](https://github.com/Ankitanand2411/HoverIT)
 
 - **Frontend**: React + Vite + TailwindCSS
 - **UI Library**: shadcn/ui (Radix-based)
-- **Mapping**: Leaflet + OpenStreetMap
+- **Mapping**: OpenStreetMap
 - **Simulation**: Custom logic for telemetry, vehicle motion, and challenge generation
 - **Mobile-Ready**: Capacitor integration enabled
 - **Backend-Ready**: Supabase configured (currently mocked for demo)
