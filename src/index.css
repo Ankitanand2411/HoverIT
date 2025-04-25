@@ -3,83 +3,18 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light Theme (default) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --background: 225 24% 15%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card: 222 25% 12%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover: 222 25% 12%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 260 46% 52%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 222.2 8% 50%;
-
-    --accent: 260 46% 52%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 260 46% 52%;
-
-    --radius: 0.5rem;
-  }
-
-  /* Dark Theme */
-  .dark {
-    --background: 222.2 47.4% 11.2%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 47.4% 12%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 47.4% 12%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 210 20% 70%;
-
-    --accent: 260 46% 52%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 240 4% 26%;
-    --input: 240 4% 26%;
-    --ring: 260 46% 52%;
-  }
-
-  /* Cyber / Custom Theme */
-  .custom-theme {
-    --background: 255 15% 10%;
-    --foreground: 300 80% 90%;
-
-    --card: 255 15% 12%;
-    --card-foreground: 300 80% 90%;
-
-    --popover: 255 15% 12%;
-    --popover-foreground: 300 80% 90%;
-
-    --primary: 280 100% 60%;
-    --primary-foreground: 260 100% 95%;
 
     --secondary: 240 10% 20%;
     --secondary-foreground: 0 0% 100%;
@@ -87,7 +22,7 @@
     --muted: 240 10% 20%;
     --muted-foreground: 0 0% 80%;
 
-    --accent: 300 70% 50%;
+    --accent: 260 46% 52%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -96,13 +31,108 @@
     --border: 240 10% 25%;
     --input: 240 10% 25%;
     --ring: 260 46% 52%;
-  }
 
+    --radius: 0.5rem;
+
+    --sidebar-background: 222 25% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 260 46% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 10% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 10% 25%;
+    --sidebar-ring: 260 46% 52%;
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-cyber-dark text-foreground;
   }
+}
+
+/* Cyber neon effect for text */
+.cyber-text {
+  text-shadow: 0 0 5px theme('colors.cyber.bright-purple'), 
+               0 0 10px rgba(155, 135, 245, 0.5);
+}
+
+/* Neon button styles */
+.neon-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(155, 135, 245, 0.2) 50%, 
+    transparent 100%);
+  transform: translateX(-100%);
+}
+
+.neon-button:hover::before {
+  transform: translateX(100%);
+  transition: transform 0.6s;
+}
+
+/* Map styling */
+.mapboxgl-map {
+  border-radius: 0.5rem;
+}
+
+/* Telemetry gauge styles */
+.gauge-container {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+}
+
+.gauge-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%/100% 100% 0 0;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%);
+  background: linear-gradient(to right, 
+    rgba(155, 135, 245, 0.1), 
+    rgba(51, 195, 240, 0.1));
+}
+
+.gauge-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  border-radius: 50%/100% 100% 0 0;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%);
+  background: linear-gradient(to right, 
+    rgba(155, 135, 245, 0.7), 
+    rgba(51, 195, 240, 0.7));
+  transition: transform 0.5s ease-out;
+  transform-origin: bottom center;
+  transform: scaleY(var(--gauge-value, 0));
+}
+
+.gauge-value {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
 }
