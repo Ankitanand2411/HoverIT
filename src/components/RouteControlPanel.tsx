@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Bike, Bot } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 interface RouteControlPanelProps {
   origin?: [number, number];
@@ -38,6 +38,18 @@ const RouteControlPanel: React.FC<RouteControlPanelProps> = ({
   showPicker,
   onPickPoint
 }) => {
+  const [internalOrigin, setInternalOrigin] = useState<string>("");
+  const [internalDestination, setInternalDestination] = useState<string>("");
+
+  React.useEffect(() => {
+    if (origin) {
+      setInternalOrigin(`${origin[0].toFixed(4)}, ${origin[1].toFixed(4)}`);
+    }
+    if (destination) {
+      setInternalDestination(`${destination[0].toFixed(4)}, ${destination[1].toFixed(4)}`);
+    }
+  }, [origin, destination]);
+
   return (
     <div className="flex flex-col gap-4">
       {/* --- Control Buttons & Inputs --- */}
@@ -61,7 +73,7 @@ const RouteControlPanel: React.FC<RouteControlPanelProps> = ({
             <Label className="min-w-[80px]">Origin:</Label>
             <Input
               className="text-xs"
-              value={origin ? `${origin[0].toFixed(4)}, ${origin[1].toFixed(4)}` : ""}
+              value={internalOrigin}
               placeholder="Select on map"
               readOnly
             />
@@ -78,7 +90,7 @@ const RouteControlPanel: React.FC<RouteControlPanelProps> = ({
             <Label className="min-w-[80px]">Destination:</Label>
             <Input
               className="text-xs"
-              value={destination ? `${destination[0].toFixed(4)}, ${destination[1].toFixed(4)}` : ""}
+              value={internalDestination}
               placeholder="Select on map"
               readOnly
             />
@@ -118,4 +130,3 @@ const RouteControlPanel: React.FC<RouteControlPanelProps> = ({
 };
 
 export default RouteControlPanel;
-
